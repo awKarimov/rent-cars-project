@@ -8,11 +8,13 @@ export default function Edit() {
   const { id } = useParams();
   const [car, setCar] = useState(null);
   const axios = useAxios();
+  const [gallery, setGallery] = useState();
 
   const getSingleCar = async (id) => {
     let data = await axios({ url: `cars/${id}` });
     if (data && data.data) {
       setCar(data.data);
+      setGallery(data.data.gallery);
     }
   };
 
@@ -95,6 +97,25 @@ export default function Edit() {
                   ]}
                 />
               </div>
+            </div>
+
+            <div className="flex gap-4 mt-6">
+              {gallery.map((el, index) => {
+                return (
+                  <div className="relative overflow-hidden">
+                    <img
+                      className="w-20 h-20 rounded-md shadow-md object-center object-cover"
+                      src={el}
+                      alt={`Rasm ${index + 1}`}
+                    />
+
+                    <div className="absolute inset-0 bg-black/50"></div>
+                  </div>
+                );
+              })}
+              <button className="border-dashed border-slate-200 border-2 w-20 h-20 hover:border-blue-500 hover:text-blue-500 rounded-md inline-flex items-center justify-center">
+                ➕
+              </button>
             </div>
           </form>
         </div>
