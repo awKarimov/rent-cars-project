@@ -81,6 +81,20 @@ export default function Edit() {
                   ]}
                 />
               </div>
+
+              <div className="flex flex-col gap-2">
+                <label htmlFor="gearbox " className="font-medium">
+                  Type of Drive
+                </label>
+                <Select
+                  name="gearbox"
+                  defaultValue={car.gearbox}
+                  options={[
+                    { value: "Manual", label: <span>Manual</span> },
+                    { value: "Automatic", label: <span>Automatic</span> },
+                  ]}
+                />
+              </div>
             </div>
           </form>
         </div>
