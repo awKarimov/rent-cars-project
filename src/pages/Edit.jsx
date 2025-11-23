@@ -113,7 +113,7 @@ export default function Edit() {
                   </div>
                 );
               })}
-              <button className="border-dashed border-slate-200 border-2 w-20 h-20 hover:border-blue-500 hover:text-blue-500 rounded-md inline-flex items-center justify-center">
+              <button className="border-dashed border-slate-300 border-2 w-20 h-20 hover:border-blue-500 hover:text-blue-500 rounded-md inline-flex items-center justify-center">
                 ➕
               </button>
             </div>
