@@ -3,6 +3,7 @@ import useAxios from "../hooks/useAxios";
 import { useParams } from "react-router-dom";
 import Input from "antd/es/input/Input";
 import { InputNumber, Select } from "antd";
+import { PlusCircledIcon, TrashIcon } from "@radix-ui/react-icons";
 
 export default function Edit() {
   const { id } = useParams();
@@ -17,6 +18,24 @@ export default function Edit() {
       setGallery(data.data.gallery);
     }
   };
+
+  function addImage() {
+    const img = prompt("Rasm linkini kiriting");
+
+    try {
+      new URL(img);
+      setGallery((prev) => {
+        [...prev, img];
+      });
+    } catch (error) {
+      alert("Rasm topilmadi");
+    }
+  }
+
+  function handleGallery(url) {
+    const result = gallery.filter((el) => el != url);
+    setGallery(result);
+  }
 
   useEffect(() => {
     getSingleCar(id);
@@ -102,19 +121,32 @@ export default function Edit() {
             <div className="flex gap-4 mt-6">
               {gallery.map((el, index) => {
                 return (
-                  <div className="relative overflow-hidden">
+                  <div className="relative overflow-hidden rounded-md shadow-md w-20 h-20 group">
                     <img
-                      className="w-20 h-20 rounded-md shadow-md object-center object-cover"
+                      className="w-full h-full object-center object-cover"
                       src={el}
                       alt={`Rasm ${index + 1}`}
                     />
 
-                    <div className="absolute inset-0 bg-black/50"></div>
+                    {gallery.length > 2 && (
+                      <div
+                        onClick={() => {
+                          handleGallery(el);
+                        }}
+                        className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition flex items-center justify-center cursor-pointer">
+                        <button type="button">
+                          <TrashIcon className="text-white w-6 h-6 " />
+                        </button>
+                      </div>
+                    )}
                   </div>
                 );
               })}
-              <button className="border-dashed border-slate-300 border-2 w-20 h-20 hover:border-blue-500 hover:text-blue-500 rounded-md inline-flex items-center justify-center">
-                ➕
+              <button
+                type="button"
+                onClick={addImage}
+                className="border-dashed border-slate-300 border-2 w-20 h-20 hover:border-blue-500 hover:text-blue-500 rounded-md inline-flex items-center justify-center group">
+                <PlusCircledIcon className="w-6 h-6 text-slate-200 group-hover:text-blue-500" />
               </button>
             </div>
           </form>
